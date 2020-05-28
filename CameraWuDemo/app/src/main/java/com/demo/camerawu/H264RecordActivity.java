@@ -31,8 +31,8 @@ public class H264RecordActivity extends AppCompatActivity implements SurfaceHold
     Button button, button1;
     private static int yuvqueuesize = 10;
     public static ArrayBlockingQueue<byte[]> YUVQueue = new ArrayBlockingQueue<>(yuvqueuesize);
-    private int width = 1080;
-    private int height = 1920;
+    private int width = 640;
+    private int height = 480;
     private AvcEncoder avcCodec;
     private boolean isStart = false;//是否开始录制视频:默认未开始
 
@@ -45,7 +45,7 @@ public class H264RecordActivity extends AppCompatActivity implements SurfaceHold
         button = findViewById(R.id.button);
         button1 = findViewById(R.id.button1);
 
-        avcCodec = new AvcEncoder(width, height, 30);
+        avcCodec = new AvcEncoder(width, height, 15);
         initCamera();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +121,7 @@ public class H264RecordActivity extends AppCompatActivity implements SurfaceHold
         // 获取当前相机参数
         Camera.Parameters parameters = mCamera.getParameters();
         // 设置预览大小
-        parameters.setPreviewSize(1920, 1080);
+        parameters.setPreviewSize(width, height);
         try {
             mCamera.setParameters(parameters);
             mCamera.setPreviewDisplay(surfaceHolder);

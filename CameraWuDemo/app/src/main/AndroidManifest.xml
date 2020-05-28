@@ -59,6 +59,7 @@
         <activity android:name=".CameraShowActivity"/>
         <activity android:name=".PicturesActivity"/>
         <activity android:name=".H264RecordActivity"/>
+        <activity android:name=".H264PlayActivity"/>
     </application>
 
 </manifest>

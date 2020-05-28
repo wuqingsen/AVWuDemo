@@ -11,9 +11,9 @@ import android.widget.Button;
 import com.demo.camerawu.util.PermissionsChecker;
 
 public class MainActivity extends AppCompatActivity {
-    private PermissionsChecker mPermissionsChecker; // 权限检测器
+    private PermissionsChecker mPermissionsChecker;
 
-    Button btnShowView, btnPictures, btnH264Record;
+    Button btnShowView, btnPictures, btnH264Record, btnH264Play;
 
     //定位权限,获取app内常用权限
     String[] permsLocation = {"android.permission.READ_PHONE_STATE"
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         btnShowView = findViewById(R.id.btnShowView);
         btnPictures = findViewById(R.id.btnPictures);
         btnH264Record = findViewById(R.id.btnH264Record);
+        btnH264Play = findViewById(R.id.btnH264Play);
 
         //预览
         btnShowView.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, H264RecordActivity.class));
+            }
+        });
+        //播放h264
+        btnH264Play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, H264PlayActivity.class));
             }
         });
     }
