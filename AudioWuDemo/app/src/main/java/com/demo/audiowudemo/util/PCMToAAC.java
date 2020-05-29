@@ -6,12 +6,16 @@ import android.media.MediaCodec;
 import android.media.MediaCodecInfo;
 import android.media.MediaFormat;
 import android.media.MediaRecorder;
+import android.util.Log;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
@@ -106,43 +110,45 @@ public class PCMToAAC {
 
 
         inputIndex = mediaEncode.dequeueInputBuffer(0);
-        inputBuffer = encodeInputBuffers[inputIndex];
-        inputBuffer.clear();
-        inputBuffer.limit(PCMAudio.length);
-        inputBuffer.put(PCMAudio);//PCM数据填充给inputBuffer
-        mediaEncode.queueInputBuffer(inputIndex, 0, PCMAudio.length, 0, 0);//通知编码器 编码
+        if (inputIndex != -1) {
+
+            inputBuffer = encodeInputBuffers[inputIndex];
+            inputBuffer.clear();
+            inputBuffer.limit(PCMAudio.length);
+            inputBuffer.put(PCMAudio);//PCM数据填充给inputBuffer
+            mediaEncode.queueInputBuffer(inputIndex, 0, PCMAudio.length, 0, 0);//通知编码器 编码
 
 
-        outputIndex = mediaEncode.dequeueOutputBuffer(encodeBufferInfo, 0);
-        while (outputIndex > 0) {
+            outputIndex = mediaEncode.dequeueOutputBuffer(encodeBufferInfo, 0);
+            while (outputIndex > 0) {
 
-            outBitSize = encodeBufferInfo.size;
-            outPacketSize = outBitSize + 7;//7为ADT头部的大小
-            outputBuffer = encodeOutputBuffers[outputIndex];//拿到输出Buffer
-            outputBuffer.position(encodeBufferInfo.offset);
-            outputBuffer.limit(encodeBufferInfo.offset + outBitSize);
-            chunkAudio = new byte[outPacketSize];
-            addADTStoPacket(chunkAudio, outPacketSize);//添加ADTS
-            outputBuffer.get(chunkAudio, 7, outBitSize);//将编码得到的AAC数据 取出到byte[]中
+                outBitSize = encodeBufferInfo.size;
+                outPacketSize = outBitSize + 7;//7为ADT头部的大小
+                outputBuffer = encodeOutputBuffers[outputIndex];//拿到输出Buffer
+                outputBuffer.position(encodeBufferInfo.offset);
+                outputBuffer.limit(encodeBufferInfo.offset + outBitSize);
+                chunkAudio = new byte[outPacketSize];
+                addADTStoPacket(chunkAudio, outPacketSize);//添加ADTS
+                outputBuffer.get(chunkAudio, 7, outBitSize);//将编码得到的AAC数据 取出到byte[]中
 
-            try {
-                //录制aac音频文件，保存在手机内存中
-                out.write(chunkAudio, 0, chunkAudio.length);
-                out.flush();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                try {
+                    //录制aac音频文件，保存在手机内存中
+                    out.write(chunkAudio, 0, chunkAudio.length);
+                    out.flush();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                outputBuffer.position(encodeBufferInfo.offset);
+                mediaEncode.releaseOutputBuffer(outputIndex, false);
+                outputIndex = mediaEncode.dequeueOutputBuffer(encodeBufferInfo, 0);
+
             }
 
-            outputBuffer.position(encodeBufferInfo.offset);
-            mediaEncode.releaseOutputBuffer(outputIndex, false);
-            outputIndex = mediaEncode.dequeueOutputBuffer(encodeBufferInfo, 0);
-
         }
-
     }
-
 
     /**
      * 添加ADTS头
@@ -166,5 +172,35 @@ public class PCMToAAC {
 
     }
 
+    public byte[] readInputStream(File file) {
+        InputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        // 1.建立通道对象
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        // 2.定义存储空间
+        byte[] buffer = new byte[1024];
+        // 3.开始读文件
+        int len = -1;
+        try {
+            if (inputStream != null) {
+                while ((len = inputStream.read(buffer)) != -1) {
+                    // 将Buffer中的数据写到outputStream对象中
+//                    outputStream.write(buffer, 0, len);
+                    dstAudioFormatFromPCM(buffer);
+                    Log.e("wqs+readInputStream", "readInputStream: " + buffer);
+                }
+            }
+            // 4.关闭流
+            outputStream.close();
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return outputStream.toByteArray();
+    }
 
 }

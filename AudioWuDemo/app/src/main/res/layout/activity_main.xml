@@ -29,4 +29,18 @@
         android:text="pcm转aac"
         android:textAllCaps="false" />
 
+    <Button
+        android:id="@+id/btnAacToPcm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="aac转pcm"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnPcmToWav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="pcm转wav"
+        android:textAllCaps="false" />
+
 </LinearLayout>

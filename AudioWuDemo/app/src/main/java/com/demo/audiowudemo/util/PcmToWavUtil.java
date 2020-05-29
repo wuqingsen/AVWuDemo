@@ -47,10 +47,10 @@ public class PcmToWavUtil {
     /**
      * pcm文件转wav文件
      *
-     * @param inFilename 源文件路径
-     * @param outFilename 目标文件路径
+     * @param pcmFile pcm
+     * @param wavFile wav
      */
-    public void pcmToWav(String inFilename, String outFilename) {
+    public void pcmToWav(String pcmFile, String wavFile) {
         FileInputStream in;
         FileOutputStream out;
         long totalAudioLen;
@@ -60,8 +60,8 @@ public class PcmToWavUtil {
         long byteRate = 16 * mSampleRate * channels / 8;
         byte[] data = new byte[mBufferSize];
         try {
-            in = new FileInputStream(inFilename);
-            out = new FileOutputStream(outFilename);
+            in = new FileInputStream(pcmFile);
+            out = new FileOutputStream(wavFile);
             totalAudioLen = in.getChannel().size();
             totalDataLen = totalAudioLen + 36;
 
