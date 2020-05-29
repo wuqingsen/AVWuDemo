@@ -14,13 +14,14 @@ import com.demo.audiowudemo.util.AACToPCM;
 import com.demo.audiowudemo.util.PCMToAAC;
 import com.demo.audiowudemo.util.PcmToWavUtil;
 import com.demo.audiowudemo.util.PermissionsChecker;
+import com.demo.audiowudemo.util.PlayPcmUtils;
 
 import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
     private PermissionsChecker mPermissionsChecker;
 
-    Button btnPcm, btnAac, btnPcmToAac, btnAacToPcm, btnPcmToWav;
+    Button btnPcm, btnAac, btnPcmToAac, btnAacToPcm, btnPcmToWav, btnPlayPcm;
 
     //定位权限,获取app内常用权限
     String[] permsLocation = {"android.permission.READ_PHONE_STATE"
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         btnPcmToAac = findViewById(R.id.btnPcmToAac);
         btnAacToPcm = findViewById(R.id.btnAacToPcm);
         btnPcmToWav = findViewById(R.id.btnPcmToWav);
+        btnPlayPcm = findViewById(R.id.btnPlayPcm);
 
         //pcm录制
         btnPcm.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +88,14 @@ public class MainActivity extends AppCompatActivity {
                 PcmToWavUtil pcmToWavUtil = new PcmToWavUtil(16000,
                         AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT * 1);
                 pcmToWavUtil.pcmToWav(filePathPcm, filePathWav);
+            }
+        });
+        //播放pcm音频流
+        btnPlayPcm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PlayPcmUtils playPcmUtils = new PlayPcmUtils(filePathPcm);
+                playPcmUtils.playPcm();
             }
         });
     }

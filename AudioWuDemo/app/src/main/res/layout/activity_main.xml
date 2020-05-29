@@ -8,39 +8,59 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnPcm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="录制PCM音频"
-        android:textAllCaps="false" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btnAac"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="录制AAC音频"
-        android:textAllCaps="false" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnPcmToAac"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="pcm转aac"
-        android:textAllCaps="false" />
+            <Button
+                android:id="@+id/btnPcm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="录制PCM音频"
+                android:textAllCaps="false" />
 
-    <Button
-        android:id="@+id/btnAacToPcm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="aac转pcm"
-        android:textAllCaps="false" />
+            <Button
+                android:id="@+id/btnAac"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="录制AAC音频"
+                android:textAllCaps="false" />
 
-    <Button
-        android:id="@+id/btnPcmToWav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="pcm转wav"
-        android:textAllCaps="false" />
+            <Button
+                android:id="@+id/btnPcmToAac"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="pcm转aac"
+                android:textAllCaps="false" />
 
+            <Button
+                android:id="@+id/btnAacToPcm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="aac转pcm"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnPcmToWav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="pcm转wav"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnPlayPcm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="播放pcm音频"
+                android:textAllCaps="false" />
+
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
