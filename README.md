@@ -13,3 +13,7 @@
 2. 自定义Camera拍照;
 3. 利用MediaCodec编码录制H.264视频流;
 4. 利用MediaCodec解码播放H.264视频流;
+
+#### LuPingWuDemo
+1. 利用MediaCodec进行录屏;
+2. 利用MediaCodec进行录音录屏;
