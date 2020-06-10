@@ -43,7 +43,7 @@ public class EncoderThread extends Thread {
 
     private AtomicBoolean mQuit = new AtomicBoolean(false);
 
-    private String mSavePath;
+//    private String mSavePath;
 
     private EncoderThread.EncodeListener listener;
 
@@ -58,7 +58,7 @@ public class EncoderThread extends Thread {
             initEncoder();
             mSurface = mEncoder.createInputSurface();
             createVirturalDisplay();
-            mSavePath = getSavePath();
+//            mSavePath = getSavePath();
             mBufferInfo = new MediaCodec.BufferInfo();
         } catch (IOException e) {
             e.printStackTrace();
@@ -88,30 +88,30 @@ public class EncoderThread extends Thread {
         }
     }
 
-    private void recordVirtualDisplay() {
-        while (!mQuit.get()) {
-            //获取MediaCodec通过h264编码之后的数据
-            MediaMuxerThread.addVideoFrameData(1);
-        }
-    }
+//    private void recordVirtualDisplay() {
+//        while (!mQuit.get()) {
+//            //获取MediaCodec通过h264编码之后的数据
+//            MediaMuxerThread.addVideoFrameData(1);
+//        }
+//    }
 
     @Override
     public void run() {
         //实现编码
         mEncoder.start();
-        recordVirtualDisplay();
+//        recordVirtualDisplay();
     }
 
-    public String getSavePath() {
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "手机录屏.mp4";
-        File file = new File(path);
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return path;
-    }
+//    public String getSavePath() {
+//        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "手机录屏.mp4";
+//        File file = new File(path);
+//        try {
+//            file.createNewFile();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return path;
+//    }
 
 
     public interface EncodeListener {

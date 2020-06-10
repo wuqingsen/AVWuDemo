@@ -4,19 +4,27 @@ import android.content.Intent;
 import android.media.AudioFormat;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.demo.audiowudemo.ceshi.AudioEncoder;
+import com.demo.audiowudemo.ceshi.MultiAudioMixer;
+import com.demo.audiowudemo.ceshi.PCMAnalyser;
 import com.demo.audiowudemo.util.AACToPCM;
 import com.demo.audiowudemo.util.PCMToAAC;
+import com.demo.audiowudemo.util.PcmAndPcm;
 import com.demo.audiowudemo.util.PcmToWavUtil;
 import com.demo.audiowudemo.util.PermissionsChecker;
 import com.demo.audiowudemo.util.PlayPcmUtils;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
     private PermissionsChecker mPermissionsChecker;
@@ -31,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             , "android.permission.WRITE_EXTERNAL_STORAGE"
             , "android.permission.CAMERA"
             , "android.permission.RECORD_AUDIO"};
-    private String filePathPcm = Environment.getExternalStorageDirectory() + "/" + "cameraWuDemo.pcm";
+    private String filePathPcm = Environment.getExternalStorageDirectory() + "/" + "1234.pcm";
     private String filePathAac = Environment.getExternalStorageDirectory() + "/" + "cameraWuDemo.aac";
     private String filePathWav = Environment.getExternalStorageDirectory() + "/" + "cameraWuDemo.wav";
 
@@ -39,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        PcmAndPcm.meargeAudio();
+        new ExpertThread().start();
 
         mPermissionsChecker = new PermissionsChecker(MainActivity.this);
         if (mPermissionsChecker.lacksPermissions(permsLocation)) {
@@ -98,5 +109,59 @@ public class MainActivity extends AppCompatActivity {
                 playPcmUtils.playPcm();
             }
         });
+    }
+
+    private class ExpertThread extends Thread {
+        private MultiAudioMixer audioMixer = MultiAudioMixer.createAudioMixer();
+        private PCMAnalyser recordPcmAudioFile = PCMAnalyser.createPCMAnalyser();
+        @Override
+        public void run() {
+
+            String pcm1 = Environment.getExternalStorageDirectory() + "/" + "cameraWuDemo.pcm";
+            String pcm2 = Environment.getExternalStorageDirectory() + "/" + "cameraWuDemo1.pcm";
+            File[] audioFiles = new File[]{new File(pcm1), new File(pcm2)};
+//            for (int i = 0, size = audioFiles.length; i != size; i++) {
+//                if (i == 0){
+//                    audioFiles[i] = new File(pcm1);
+//                }else{
+//                    audioFiles[1] = new File(pcm2);
+//                }
+//
+//            }
+
+
+            try {
+                String filePath1 = Environment.getExternalStorageDirectory() + "/" + "1234.pcm";
+                File tempMixAudioFile = new File(filePath1);
+                final FileOutputStream mixTempOutStream = new FileOutputStream(tempMixAudioFile);
+                audioMixer.setOnAudioMixListener(new MultiAudioMixer.OnAudioMixListener() {
+
+                    @Override
+                    public void onMixing(byte[] mixBytes) throws IOException {
+                        mixTempOutStream.write(mixBytes);
+                    }
+
+                    @Override
+                    public void onMixError(int errorCode) {
+
+                    }
+
+                    @Override
+                    public void onMixComplete() {
+
+                    }
+                });
+                audioMixer.mixAudios(audioFiles, recordPcmAudioFile.bytesPerSample());
+                mixTempOutStream.close();
+                 String filePath = Environment.getExternalStorageDirectory() + "/" + "cameraWuDemo1.mp3";
+                File outputFile = new File(filePath);
+                int channelCount = audioFiles.length;
+                AudioEncoder accEncoder = AudioEncoder.createAccEncoder(tempMixAudioFile, channelCount);
+                accEncoder.encodeToFile(outputFile);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+        }
     }
 }

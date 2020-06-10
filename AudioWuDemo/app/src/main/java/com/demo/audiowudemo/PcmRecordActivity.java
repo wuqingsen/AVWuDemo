@@ -23,7 +23,7 @@ public class PcmRecordActivity extends AppCompatActivity {
     private boolean isRecord = false;//是否在录制，默认没在录制
     private AudioRecordThread audioRecordThread;
     private Button btnPcm;
-    private String filePath = Environment.getExternalStorageDirectory() + "/" + "cameraWuDemo.pcm";
+    private String filePath = Environment.getExternalStorageDirectory() + "/" + "cameraWuDemo1.pcm";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

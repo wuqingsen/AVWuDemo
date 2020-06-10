@@ -19,7 +19,7 @@ import java.util.Vector;
 public class VideoEncoderThread extends Thread {
     EncoderThread mEncoderThread;
     // 存储每一帧的数据 Vector 自增数组
-    private Vector<Integer> frameBytes;
+//    private Vector<Integer> frameBytes;
     private final Object lock = new Object();
 
     private WeakReference<MediaMuxerThread> mediaMuxer; // 音视频混合器
@@ -32,7 +32,7 @@ public class VideoEncoderThread extends Thread {
     public VideoEncoderThread(WeakReference<MediaMuxerThread> mediaMuxer) {
         // 初始化相关对象和参数
         this.mediaMuxer = mediaMuxer;
-        frameBytes = new Vector<Integer>();
+//        frameBytes = new Vector<Integer>();
 
     }
 
@@ -51,12 +51,6 @@ public class VideoEncoderThread extends Thread {
             Log.e("=====视频录制", Thread.currentThread().getId() + " video -- setMuxerReady..." + muxerReady);
             isMuxerReady = muxerReady;
             lock.notifyAll();
-        }
-    }
-
-    public void add(int data) {
-        if (frameBytes != null && isMuxerReady) {
-            frameBytes.add(data);
         }
     }
 
@@ -89,7 +83,7 @@ public class VideoEncoderThread extends Thread {
                     }
                 }
 
-            } else if (!frameBytes.isEmpty()) {
+            } else {
                 try {
                     encodeFrame(1);
                 } catch (Exception e) {

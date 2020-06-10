@@ -95,11 +95,11 @@ public class MediaMuxerThread extends Thread {
     }
 
     // 添加视频帧数据
-    public static void addVideoFrameData(int data) {
-        if (mediaMuxerThread != null) {
-            mediaMuxerThread.addVideoData(data);
-        }
-    }
+//    public static void addVideoFrameData(int data) {
+//        if (mediaMuxerThread != null) {
+//            mediaMuxerThread.addVideoData(data);
+//        }
+//    }
 //添加混合数据
     public void addMuxerData(MuxerData data) {
         if (!isMuxerStart()) {
@@ -182,11 +182,11 @@ public class MediaMuxerThread extends Thread {
 
 
     // 添加视频数据
-    private void addVideoData(int data) {
-        if (videoThread != null) {
-            videoThread.add(data);
-        }
-    }
+//    private void addVideoData(int data) {
+//        if (videoThread != null) {
+//            videoThread.add(data);
+//        }
+//    }
     //初始化混合器,还未开始混合,等两个通道添加了，才能开始混合
     private void initMuxer() {
         muxerDatas = new Vector<>();

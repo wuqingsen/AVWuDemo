@@ -19,4 +19,11 @@
         android:textAllCaps="false"
         android:text="MediaCodec录音录屏" />
 
+    <Button
+        android:id="@+id/btn_avdiovideo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:text="MediaCodec录音录屏 封装后" />
+
 </LinearLayout>
