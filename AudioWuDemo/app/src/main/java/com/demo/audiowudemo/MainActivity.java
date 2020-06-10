@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 //        PcmAndPcm.meargeAudio();
-        new ExpertThread().start();
+//        new ExpertThread().start();
 
         mPermissionsChecker = new PermissionsChecker(MainActivity.this);
         if (mPermissionsChecker.lacksPermissions(permsLocation)) {
