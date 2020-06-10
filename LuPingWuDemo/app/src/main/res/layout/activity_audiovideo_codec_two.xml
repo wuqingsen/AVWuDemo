@@ -12,6 +12,7 @@
         android:textSize="15sp"
         android:text="开始录制"
         android:gravity="center"
+        android:textColor="@color/colorPrimary"
         android:layout_alignParentTop="true"
         android:visibility="gone"/>
 
