@@ -15,10 +15,11 @@ import java.nio.ByteBuffer;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
+
 /**
- * @author chace
- * @date 2016/9/19
- * 屏幕录制器
+ * wuqingsen on 2020-06-09
+ * Mailbox:1243411677@qq.com
+ * annotation:录制屏幕
  */
 @SuppressLint("NewApi")
 public class ScreenRecorderThread extends Thread {
