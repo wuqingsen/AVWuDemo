@@ -60,6 +60,19 @@
                 android:text="播放pcm音频"
                 android:textAllCaps="false" />
 
+            <Button
+                android:id="@+id/btnVoiceMix1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="音频混音,音频长度采样等参数要一样"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnVoiceMix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="mp4提取音频混音"
+                android:textAllCaps="false" />
 
         </LinearLayout>
     </ScrollView>

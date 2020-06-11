@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="可以混合多个音频文件,这里只是混合两个作为演示" />
+
+    <Button
+        android:id="@+id/btnMP41"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开始录制第一段音频"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnMP41Stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="停止录制第一段音频"
+        android:textAllCaps="false" />
+
+    <TextView
+        android:id="@+id/tv_voice1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+    <Button
+        android:id="@+id/btnMP42"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开始录制第二段音频"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnMP42Stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="停止录制第二段音频"
+        android:textAllCaps="false" />
+
+    <TextView
+        android:id="@+id/tv_voice2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+    <Button
+        android:id="@+id/btnDecode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="解码两段音频为pcm"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnMIX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="混合两段音频"
+        android:textAllCaps="false" />
+
+    <TextView
+        android:id="@+id/tv_mix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+</LinearLayout>
