@@ -7,6 +7,8 @@
 4. pcm转aac;
 5. pcm转wav;
 6. aac转pcm;
+7. 多个pcm文件混音,采样率长度相同;
+8. 多个mp4文件提取音频解码进行pcm文件混音;
 
 #### CameraWuDemo
 1. 自定义Camera预览;
