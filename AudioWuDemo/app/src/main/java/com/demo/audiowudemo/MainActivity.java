@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.media.AudioFormat;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -14,18 +12,12 @@ import androidx.core.app.ActivityCompat;
 
 import com.demo.audiowudemo.util.AACToPCM;
 import com.demo.audiowudemo.util.PCMToAAC;
-import com.demo.audiowudemo.util.PcmAndPcm;
 import com.demo.audiowudemo.util.PcmMixer;
 import com.demo.audiowudemo.util.PcmToWavUtil;
 import com.demo.audiowudemo.util.PermissionsChecker;
 import com.demo.audiowudemo.util.PlayPcmUtils;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private PermissionsChecker mPermissionsChecker;
@@ -113,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         btnVoiceMix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, VoiceMixAcitivity.class));
+                startActivity(new Intent(MainActivity.this, VoiceMixActivity.class));
             }
         });
         //音频混音，音频长度参数要一样

@@ -8,12 +8,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.demo.camerawu.activity.CameraShowActivity;
+import com.demo.camerawu.activity.ExtractorMuxerActivity;
+import com.demo.camerawu.activity.H264PlayActivity;
+import com.demo.camerawu.activity.H264RecordActivity;
+import com.demo.camerawu.activity.PicturesActivity;
 import com.demo.camerawu.util.PermissionsChecker;
 
 public class MainActivity extends AppCompatActivity {
     private PermissionsChecker mPermissionsChecker;
 
-    Button btnShowView, btnPictures, btnH264Record, btnH264Play;
+    Button btnShowView, btnPictures, btnH264Record, btnH264Play, btnMp4ExtractorMuxer;
 
     //定位权限,获取app内常用权限
     String[] permsLocation = {"android.permission.READ_PHONE_STATE"
@@ -36,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         btnPictures = findViewById(R.id.btnPictures);
         btnH264Record = findViewById(R.id.btnH264Record);
         btnH264Play = findViewById(R.id.btnH264Play);
+        btnMp4ExtractorMuxer = findViewById(R.id.btnMp4ExtractorMuxer);
 
         //预览
         btnShowView.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +69,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, H264PlayActivity.class));
+            }
+        });
+        //MP4视频分离与合并
+        btnMp4ExtractorMuxer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ExtractorMuxerActivity.class));
             }
         });
     }

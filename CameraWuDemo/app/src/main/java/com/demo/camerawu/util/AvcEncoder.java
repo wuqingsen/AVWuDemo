@@ -6,7 +6,7 @@ import android.media.MediaCodecInfo;
 import android.media.MediaFormat;
 import android.os.Environment;
 
-import com.demo.camerawu.H264RecordActivity;
+import com.demo.camerawu.activity.H264RecordActivity;
 
 import java.io.BufferedOutputStream;
 import java.io.File;

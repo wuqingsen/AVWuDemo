@@ -57,10 +57,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CameraShowActivity"/>
-        <activity android:name=".PicturesActivity"/>
-        <activity android:name=".H264RecordActivity"/>
-        <activity android:name=".H264PlayActivity"/>
+        <activity android:name=".activity.CameraShowActivity"/>
+        <activity android:name=".activity.PicturesActivity"/>
+        <activity android:name=".activity.H264RecordActivity"/>
+        <activity android:name=".activity.H264PlayActivity"/>
+        <activity android:name=".activity.ExtractorMuxerActivity"/>
     </application>
 
 </manifest>
