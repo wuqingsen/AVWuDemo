@@ -19,3 +19,4 @@
 #### LuPingWuDemo
 1. 利用MediaCodec进行录屏;
 2. 利用MediaCodec进行录音录屏;
+3. 利用MediaCodec录屏为H264格式;
