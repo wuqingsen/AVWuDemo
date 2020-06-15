@@ -12,6 +12,8 @@ import javax.microedition.khronos.opengles.GL10;
  * annotation:
  */
 public class MyGLRenderer implements GLSurfaceView.Renderer {
+    private Square square;
+    private Triangle triangle;
 
     // 在View的OpenGL环境被创建的时候调用。
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {

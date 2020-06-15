@@ -9,21 +9,28 @@
         android:id="@+id/btn_video"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:text="MediaCodec录屏" />
+        android:text="MediaCodec录屏"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/btn_avdiovideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:text="MediaCodec录音录屏" />
+        android:text="MediaCodec录音录屏"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/btn_avdiovideo2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:text="MediaCodec录音录屏 封装后" />
+        android:text="MediaCodec录音录屏 封装后"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_audioH264"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MediaCodec录屏 录制H264视频"
+        android:textAllCaps="false" />
 
 </LinearLayout>

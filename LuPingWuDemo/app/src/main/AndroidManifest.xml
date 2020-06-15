@@ -61,6 +61,7 @@
         <activity android:name=".video.VideoCodecActivity"/>
         <activity android:name=".audiovideo.AudioVideoCodecActivity"/>
         <activity android:name=".audiovideotwo.AudioVideoCodecTwoActivity"/>
+        <activity android:name=".videoh264.VideoCodecH264Activity"/>
     </application>
 
 </manifest>

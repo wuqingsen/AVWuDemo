@@ -58,7 +58,8 @@
         </activity>
         <activity android:name=".PcmRecordActivity"/>
         <activity android:name=".AacRecordActivity"/>
-        <activity android:name=".VoiceMixActivity"/>
+        <activity android:name=".VoiceMix441Activity"/>
+        <activity android:name=".VoiceMix16Activity"/>
     </application>
 
 </manifest>

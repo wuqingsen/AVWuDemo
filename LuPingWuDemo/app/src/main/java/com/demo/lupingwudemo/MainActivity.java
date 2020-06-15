@@ -13,6 +13,7 @@ import com.demo.lupingwudemo.audiovideo.AudioVideoCodecActivity;
 import com.demo.lupingwudemo.audiovideotwo.AudioVideoCodecTwoActivity;
 import com.demo.lupingwudemo.utils.PermissionsChecker;
 import com.demo.lupingwudemo.video.VideoCodecActivity;
+import com.demo.lupingwudemo.videoh264.VideoCodecH264Activity;
 
 /**
  * wuqingsen on 2020-06-04
@@ -21,7 +22,7 @@ import com.demo.lupingwudemo.video.VideoCodecActivity;
  */
 public class MainActivity extends AppCompatActivity {
     private PermissionsChecker mPermissionsChecker;
-    Button btn_video, btn_avdiovideo, btn_avdiovideo2;
+    Button btn_video, btn_avdiovideo, btn_avdiovideo2, btn_audioH264;
 
     //定位权限,获取app内常用权限
     String[] permsLocation = {"android.permission.READ_PHONE_STATE"
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         btn_video = findViewById(R.id.btn_video);
         btn_avdiovideo = findViewById(R.id.btn_avdiovideo);
         btn_avdiovideo2 = findViewById(R.id.btn_avdiovideo2);
+        btn_audioH264 = findViewById(R.id.btn_audioH264);
 
         //mediaCodec录屏
         btn_video.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +66,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, AudioVideoCodecTwoActivity.class));
+            }
+        });
+
+        //录制h264
+        btn_audioH264.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, VideoCodecH264Activity.class));
             }
         });
     }

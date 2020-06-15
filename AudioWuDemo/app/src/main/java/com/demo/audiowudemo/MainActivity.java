@@ -22,7 +22,7 @@ import java.io.File;
 public class MainActivity extends AppCompatActivity {
     private PermissionsChecker mPermissionsChecker;
 
-    Button btnPcm, btnAac, btnPcmToAac, btnAacToPcm, btnPcmToWav, btnPlayPcm, btnVoiceMix, btnVoiceMix1;
+    Button btnPcm, btnAac, btnPcmToAac, btnAacToPcm, btnPcmToWav, btnPlayPcm, btnVoiceMix, btnVoiceMix1, btnVoiceMix16;
 
     //定位权限,获取app内常用权限
     String[] permsLocation = {"android.permission.READ_PHONE_STATE"
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             , "android.permission.WRITE_EXTERNAL_STORAGE"
             , "android.permission.CAMERA"
             , "android.permission.RECORD_AUDIO"};
-    private String filePathPcm = Environment.getExternalStorageDirectory() + "/" + "1234.pcm";
+    private String filePathPcm = Environment.getExternalStorageDirectory() + "/" + "voiceMixOne.pcm";
     private String filePathAac = Environment.getExternalStorageDirectory() + "/" + "cameraWuDemo.aac";
     private String filePathWav = Environment.getExternalStorageDirectory() + "/" + "cameraWuDemo.wav";
 
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         btnPlayPcm = findViewById(R.id.btnPlayPcm);
         btnVoiceMix = findViewById(R.id.btnVoiceMix);
         btnVoiceMix1 = findViewById(R.id.btnVoiceMix1);
+        btnVoiceMix16 = findViewById(R.id.btnVoiceMix16);
 
         //pcm录制
         btnPcm.setOnClickListener(new View.OnClickListener() {
@@ -101,13 +102,6 @@ public class MainActivity extends AppCompatActivity {
                 playPcmUtils.playPcm();
             }
         });
-        //音频混音mp4提取音频混音
-        btnVoiceMix.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, VoiceMixActivity.class));
-            }
-        });
         //音频混音，音频长度参数要一样
         btnVoiceMix1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,5 +112,20 @@ public class MainActivity extends AppCompatActivity {
                 PcmMixer.startMix(audiopath1, audiopath2, audioout);
             }
         });
+        //音频混音mp4提取音频混音 44.1k
+        btnVoiceMix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, VoiceMix441Activity.class));
+            }
+        });
+        //音频混音mp4提取音频混音 16k
+        btnVoiceMix16.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, VoiceMix16Activity.class));
+            }
+        });
+
     }
 }

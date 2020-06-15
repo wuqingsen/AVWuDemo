@@ -71,8 +71,16 @@
                 android:id="@+id/btnVoiceMix"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="mp4提取音频混音"
+                android:text="mp4提取音频混音44.1k"
                 android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnVoiceMix16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="mp4提取音频混音16k"
+                android:textAllCaps="false"
+                android:visibility="gone"/>
 
         </LinearLayout>
     </ScrollView>
