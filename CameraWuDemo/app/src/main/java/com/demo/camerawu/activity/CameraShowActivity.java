@@ -43,7 +43,7 @@ public class CameraShowActivity extends AppCompatActivity implements SurfaceHold
         button = findViewById(R.id.button);
 
         if (checkCameraHardware()) {
-            mCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;//默认后置
+            mCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;//默认前置
             try {
                 mCamera = Camera.open(mCameraId);
             } catch (Exception e) {
