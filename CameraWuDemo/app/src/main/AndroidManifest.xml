@@ -62,6 +62,7 @@
         <activity android:name=".activity.H264RecordActivity"/>
         <activity android:name=".activity.H264PlayActivity"/>
         <activity android:name=".activity.ExtractorMuxerActivity"/>
+        <activity android:name=".activity.CameraShowSPActivity"/>
     </application>
 
 </manifest>

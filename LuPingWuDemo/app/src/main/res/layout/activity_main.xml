@@ -33,4 +33,25 @@
         android:text="MediaCodec录屏 录制H264视频"
         android:textAllCaps="false" />
 
+    <Button
+        android:id="@+id/btn_vudio10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MediaRecorder录屏 10.0"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_vudio_codec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MediaCodec录屏 10.0"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_vudio_codec_new"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MediaCodec录屏 10.0新"
+        android:textAllCaps="false" />
+
 </LinearLayout>

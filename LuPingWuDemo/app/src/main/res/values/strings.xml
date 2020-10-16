@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">LuPingWuDemo</string>
+
+    <string name="content_save_bitmap_result">Bitmap保存成功，路径：%1$s</string>
+    <string name="content_media_recorder_result">屏幕录制成功，路径：%1$s</string>
+    <string name="service_start">启动媒体投影服务</string>
 </resources>

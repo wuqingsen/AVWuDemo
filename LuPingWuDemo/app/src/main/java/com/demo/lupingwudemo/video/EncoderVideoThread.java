@@ -11,20 +11,11 @@ import android.media.projection.MediaProjection;
 import android.os.Build;
 import android.os.Environment;
 import android.view.Surface;
-
 import androidx.annotation.RequiresApi;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-
-/**
- * wuqingsen on 2020-06-03
- * Mailbox:1243411677@qq.com
- * annotation:
- */
 
 @SuppressLint("NewApi")
 public class EncoderVideoThread extends Thread {
@@ -85,7 +76,6 @@ public class EncoderVideoThread extends Thread {
     }
 
     //传入MediaCodec生成的Surface,利用MediaCodec编码surface中的数据
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void createVirturalDisplay(){
         if(mProjection != null){
             //这里有个坑：flags设DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,mSurface这个才行，否则生成的文件无法播放
@@ -158,7 +148,6 @@ public class EncoderVideoThread extends Thread {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void resetOutputFormat() {
         if (mMuxerStarted) {
             throw new IllegalStateException("output format already changed!");
@@ -189,18 +178,11 @@ public class EncoderVideoThread extends Thread {
 
     }
 
-
     public String getSavePath(){
         String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "手机录屏.mp4";
-        File file = new File(path);
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         return path;
     }
-
 
     public interface EncodeListener{
         void onEncode(byte[] data, int offset, int length);

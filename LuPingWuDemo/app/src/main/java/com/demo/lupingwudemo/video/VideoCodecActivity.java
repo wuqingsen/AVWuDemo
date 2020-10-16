@@ -9,6 +9,7 @@ import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -41,8 +42,6 @@ public class VideoCodecActivity extends AppCompatActivity {
     private boolean recordState = false;
 
     public static final int REQUEST_CODE = 111;
-
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -88,13 +87,13 @@ public class VideoCodecActivity extends AppCompatActivity {
         //停止录制，阻塞线程,清空资源
         if (recordState) {
             recordState = false;
-            if(mEncoderThread != null){
+            if (mEncoderThread != null) {
                 mEncoderThread.interrupt();
                 mEncoderThread.quit();
                 mEncoderThread = null;
             }
         }
-        Toast.makeText(this,"停止录制中......", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "停止录制中......", Toast.LENGTH_SHORT).show();
         mTvResult.setText("完成录制，文件保存在" + getSavePath() + File.separator);
     }
 
@@ -116,6 +115,7 @@ public class VideoCodecActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.e("wqs", "requestCode:" + requestCode + ";resultCode:" + resultCode + ";RESULT_OK:" + RESULT_OK);
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             mediaProjection = mediaProjectionManager.getMediaProjection(resultCode, data);   //根据返回结果，获取MediaProjection--保存帧数据
             //开启编码线程进行编码
@@ -126,7 +126,7 @@ public class VideoCodecActivity extends AppCompatActivity {
     }
 
 
-    public String getSavePath(){
+    public String getSavePath() {
         String path = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "手机录屏.mp4";
 
         return path;
