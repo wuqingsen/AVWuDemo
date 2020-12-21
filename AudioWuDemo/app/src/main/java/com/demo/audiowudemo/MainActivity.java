@@ -22,7 +22,8 @@ import java.io.File;
 public class MainActivity extends AppCompatActivity {
     private PermissionsChecker mPermissionsChecker;
 
-    Button btnPcm, btnAac, btnPcmToAac, btnAacToPcm, btnPcmToWav, btnPlayPcm, btnVoiceMix, btnVoiceMix1, btnVoiceMix16;
+    Button btnPcm, btnAac, btnPcmToAac, btnAacToPcm, btnPcmToWav,
+            btnPlayPcm, btnVoiceMix, btnVoiceMix1, btnVoiceMix16, btnMp3ToAac;
 
     //定位权限,获取app内常用权限
     String[] permsLocation = {"android.permission.READ_PHONE_STATE"
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         btnVoiceMix = findViewById(R.id.btnVoiceMix);
         btnVoiceMix1 = findViewById(R.id.btnVoiceMix1);
         btnVoiceMix16 = findViewById(R.id.btnVoiceMix16);
+        btnMp3ToAac = findViewById(R.id.btnMp3ToAac);
 
         //pcm录制
         btnPcm.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +126,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, VoiceMix16Activity.class));
+            }
+        });
+        //mp3转aac
+        btnMp3ToAac.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Mp3ToAacActivity.class));
             }
         });
 

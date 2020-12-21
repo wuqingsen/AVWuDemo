@@ -80,7 +80,13 @@
                 android:layout_height="wrap_content"
                 android:text="mp4提取音频混音16k"
                 android:textAllCaps="false"
-                android:visibility="gone"/>
+                android:visibility="gone" />
+            <Button
+                android:id="@+id/btnMp3ToAac"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="mp3转aac"
+                android:textAllCaps="false" />
 
         </LinearLayout>
     </ScrollView>
