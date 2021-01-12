@@ -16,6 +16,7 @@ import android.media.MediaRecorder;
 import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
 import android.os.Binder;
+import android.os.Environment;
 import android.os.IBinder;
 import android.util.DisplayMetrics;
 
@@ -192,7 +193,8 @@ public class MediaProjectionService extends Service {
         final File dirFile = FileUtils.getCacheMovieDir(this);
         boolean mkdirs = dirFile.mkdirs();
         // 创建保存文件
-        mediaFile = new File(dirFile, FileUtils.getDateName("MediaRecorder") + ".mp4");
+        String filePath = Environment.getExternalStorageDirectory().getAbsolutePath()+ File.separator+"吴庆森录屏.mp4";
+        mediaFile = new File(filePath);
 
         // 调用顺序不能乱
         mediaRecorder = new MediaRecorder();
