@@ -85,6 +85,7 @@
         <activity android:name=".recordscreen10.VideoCodec10Activity"/>
         <activity android:name=".recordscreencodec.ScreenCodecActivity"/>
         <activity android:name=".videoscreen.ScreenCodecNewActivity"/>
+        <activity android:name=".audiovideothree.AudioVideoThreeCodecActivity"/>
 
     </application>
 

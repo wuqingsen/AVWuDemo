@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.demo.lupingwudemo.audiovideo.AudioVideoCodecActivity;
+import com.demo.lupingwudemo.audiovideothree.AudioVideoThreeCodecActivity;
 import com.demo.lupingwudemo.audiovideotwo.AudioVideoCodecTwoActivity;
 import com.demo.lupingwudemo.recordscreen10.VideoCodec10Activity;
 import com.demo.lupingwudemo.recordscreencodec.ScreenCodecActivity;
@@ -25,7 +26,7 @@ import com.demo.lupingwudemo.videoscreen.ScreenCodecNewActivity;
  */
 public class MainActivity extends AppCompatActivity {
     private PermissionsChecker mPermissionsChecker;
-    Button btn_video, btn_avdiovideo, btn_avdiovideo2,
+    Button btn_video, btn_avdiovideo, btn_avdiovideo2,btn_avdiovideo3,
             btn_audioH264, btn_vudio10,btn_vudio_codec,btn_vudio_codec_new;
 
     //定位权限,获取app内常用权限
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         btn_vudio10 = findViewById(R.id.btn_vudio10);
         btn_vudio_codec = findViewById(R.id.btn_vudio_codec);
         btn_vudio_codec_new = findViewById(R.id.btn_vudio_codec_new);
+        btn_avdiovideo3 = findViewById(R.id.btn_avdiovideo3);
 
         //mediaCodec录屏
         btn_video.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +75,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, AudioVideoCodecTwoActivity.class));
+            }
+        });
+        //mediaCodec录音录屏 音频解码不同
+        btn_avdiovideo3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AudioVideoThreeCodecActivity.class));
             }
         });
 
