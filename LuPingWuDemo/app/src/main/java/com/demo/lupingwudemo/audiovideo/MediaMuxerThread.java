@@ -54,7 +54,7 @@ public class MediaMuxerThread extends Thread {
             synchronized (MediaMuxerThread.class) {
                 if (mediaMuxerThread == null) {
                     mediaMuxerThread = new MediaMuxerThread();
-                    Log.e("=====混合线程", "mediaMuxerThread.run();");
+//                    Log.e("=====混合线程", "mediaMuxerThread.run();");
                     mediaMuxerThread.start();
                 }
             }
@@ -91,7 +91,7 @@ public class MediaMuxerThread extends Thread {
         if (videoThread != null) {
             videoThread.setMuxerReady(true);
         }
-        Log.e("=====混合线程", "readyStart(String filePath, boolean restart) 保存至:" + filePath);
+//        Log.e("=====混合线程", "readyStart(String filePath, boolean restart) 保存至:" + filePath);
     }
 
     // 添加视频帧数据
@@ -129,18 +129,18 @@ public class MediaMuxerThread extends Thread {
             try {
                 track = mediaMuxer.addTrack(mediaFormat);
             } catch (Exception e) {
-                Log.e("=====混合线程", "addTrack 异常:" + e.toString());
+//                Log.e("=====混合线程", "addTrack 异常:" + e.toString());
                 return;
             }
 
             if (index == TRACK_VIDEO) {
                 videoTrackIndex = track;
                 isVideoTrackAdd = true;
-                Log.e("=====混合线程", "添加视频轨完成");
+//                Log.e("=====混合线程", "添加视频轨完成");
             } else {
                 audioTrackIndex = track;
                 isAudioTrackAdd = true;
-                Log.e("=====混合线程", "添加音轨完成");
+//                Log.e("=====混合线程", "添加音轨完成");
             }
             requestStart();
         }
@@ -153,7 +153,7 @@ public class MediaMuxerThread extends Thread {
         synchronized (lock) {
             if (isMuxerStart()) {
                 mediaMuxer.start();
-                Log.e("=====混合线程", "requestStart启动混合器..开始等待数据输入...");
+//                Log.e("=====混合线程", "requestStart启动混合器..开始等待数据输入...");
                 lock.notify();
             }
         }
@@ -198,7 +198,7 @@ public class MediaMuxerThread extends Thread {
         try {
             readyStart();
         } catch (IOException e) {
-            Log.e("=====混合线程", "initMuxer 异常:" + e.toString());
+//            Log.e("=====混合线程", "initMuxer 异常:" + e.toString());
         }
     }
 
@@ -215,7 +215,7 @@ public class MediaMuxerThread extends Thread {
                 if (muxerDatas.isEmpty()) {
                     synchronized (lock) {
                         try {
-                            Log.e("=====混合线程", "等待混合数据...");
+//                            Log.e("=====混合线程", "等待混合数据...");
                             lock.wait();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
@@ -230,27 +230,27 @@ public class MediaMuxerThread extends Thread {
                         } else {
                             track = audioTrackIndex;
                         }
-                        Log.e("=====混合线程", "写入混合数据 " + data.bufferInfo.size);
+//                        Log.e("=====混合线程", "写入混合数据 " + data.bufferInfo.size);
                         try {
                             mediaMuxer.writeSampleData(track, data.byteBuf, data.bufferInfo);
                         } catch (Exception e) {
-                            Log.e("=====混合线程", "写入混合数据失败!" + e.toString());
+//                            Log.e("=====混合线程", "写入混合数据失败!" + e.toString());
                         }
                 }
             } else {
                 synchronized (lock) {
                     try {
-                        Log.e("=====混合线程", "等待音视轨添加...");
+//                        Log.e("=====混合线程", "等待音视轨添加...");
                         lock.wait();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                        Log.e("=====混合线程", "addTrack 异常:" + e.toString());
+//                        Log.e("=====混合线程", "addTrack 异常:" + e.toString());
                     }
                 }
             }
         }
         readyStop();
-        Log.e("=====混合线程", "混合器退出...");
+//        Log.e("=====混合线程", "混合器退出...");
     }
 
     private void readyStop() {
@@ -258,12 +258,12 @@ public class MediaMuxerThread extends Thread {
             try {
                 mediaMuxer.stop();
             } catch (Exception e) {
-                Log.e("=====混合线程", "mediaMuxer.stop() 异常:" + e.toString());
+//                Log.e("=====混合线程", "mediaMuxer.stop() 异常:" + e.toString());
             }
             try {
                 mediaMuxer.release();
             } catch (Exception e) {
-                Log.e("=====混合线程", "mediaMuxer.release() 异常:" + e.toString());
+//                Log.e("=====混合线程", "mediaMuxer.release() 异常:" + e.toString());
 
             }
             mediaMuxer = null;

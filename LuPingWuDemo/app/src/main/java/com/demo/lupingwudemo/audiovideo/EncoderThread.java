@@ -32,7 +32,7 @@ public class EncoderThread extends Thread {
     //    private MediaMuxer mMuxer;   //将音视频数据合成多媒体文件
     public static MediaCodec.BufferInfo mBufferInfo;
     private Surface mSurface;  //虚拟屏幕VirturalDiaplay的输出目的地
-    private VirtualDisplay mVirtualDisplay;   //虚拟屏幕
+    public static VirtualDisplay mVirtualDisplay;   //虚拟屏幕
 
     private int mWidth = 480;
     private int mHeight = 720;

@@ -104,7 +104,7 @@ public class AudioEncoderThread extends Thread {
             mMediaCodec = null;
         }
         isStart = false;
-        Log.e("=====音频录制", "停止");
+//        Log.e("=====音频录制", "停止");
     }
 
     //开始录音
@@ -157,7 +157,7 @@ public class AudioEncoderThread extends Thread {
     //混合器已经准备好
     public void setMuxerReady(boolean muxerReady) {
         synchronized (lock) {
-            Log.e("=====音频录制准备", Thread.currentThread().getId() + " audio -- setMuxerReady..." + muxerReady);
+//            Log.e("=====音频录制准备", Thread.currentThread().getId() + " audio -- setMuxerReady..." + muxerReady);
             isMuxerReady = muxerReady;
             lock.notifyAll();
         }
@@ -181,7 +181,7 @@ public class AudioEncoderThread extends Thread {
                 if (!isMuxerReady) {
                     synchronized (lock) {
                         try {
-                            Log.e("=====音频录制", "audio -- 等待混合器准备...");
+//                            Log.e("=====音频录制", "audio -- 等待混合器准备...");
                             lock.wait();
                         } catch (InterruptedException e) {
                         }
@@ -190,7 +190,7 @@ public class AudioEncoderThread extends Thread {
 
                 if (isMuxerReady) {
                     try {
-                        Log.e("=====音频录制", "audio -- startMediaCodec...");
+//                        Log.e("=====音频录制", "audio -- startMediaCodec...");
                         startMediaCodec();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -227,19 +227,19 @@ public class AudioEncoderThread extends Thread {
                      */
                     buf.flip();
 
-                    Log.e("=====音频录制", "解码音频数据:" + readBytes);
+//                    Log.e("=====音频录制", "解码音频数据:" + readBytes);
                     try {
                         //解码
                         encode(buf, readBytes, getPTSUs());
                     } catch (Exception e) {
-                        Log.e("=====音频录制", "解码音频(Audio)数据 失败");
+//                        Log.e("=====音频录制", "解码音频(Audio)数据 失败");
                         e.printStackTrace();
                     }
                 }
             }
 
         }
-        Log.e("=====音频录制", "Audio 录制线程 退出...");
+//        Log.e("=====音频录制", "Audio 录制线程 退出...");
     }
 
     //解码
@@ -325,7 +325,7 @@ public class AudioEncoderThread extends Thread {
                 MediaMuxerThread mediaMuxerRunnable = this.mediaMuxerRunnable.get();
 
                 if (mediaMuxerRunnable != null) {
-                    Log.e("=====音频录制", "添加音轨 INFO_OUTPUT_FORMAT_CHANGED " + format.toString());
+//                    Log.e("=====音频录制", "添加音轨 INFO_OUTPUT_FORMAT_CHANGED " + format.toString());
                     mediaMuxerRunnable.addTrackIndex(MediaMuxerThread.TRACK_AUDIO, format);
                 }
             } else {

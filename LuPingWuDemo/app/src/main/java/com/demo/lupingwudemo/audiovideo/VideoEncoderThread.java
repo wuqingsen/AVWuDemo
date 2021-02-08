@@ -48,7 +48,7 @@ public class VideoEncoderThread extends Thread {
     //混合器已经初始化，等待添加轨道
     public void setMuxerReady(boolean muxerReady) {
         synchronized (lock) {
-            Log.e("=====视频录制", Thread.currentThread().getId() + " video -- setMuxerReady..." + muxerReady);
+//            Log.e("=====视频录制", Thread.currentThread().getId() + " video -- setMuxerReady..." + muxerReady);
             isMuxerReady = muxerReady;
             lock.notifyAll();
         }
@@ -63,7 +63,7 @@ public class VideoEncoderThread extends Thread {
                 if (!isMuxerReady) {
                     synchronized (lock) {
                         try {
-                            Log.e("=====视频录制", "video -- 等待混合器准备...");
+//                            Log.e("=====视频录制", "video -- 等待混合器准备...");
                             lock.wait();
                         } catch (InterruptedException e) {
                         }
@@ -72,7 +72,7 @@ public class VideoEncoderThread extends Thread {
 
                 if (isMuxerReady) {
                     try {
-                        Log.e("=====视频录制", "video -- startMediaCodec...");
+//                        Log.e("=====视频录制", "video -- startMediaCodec...");
                         startMediaCodec();
                     } catch (IOException e) {
                         isStart = false;
@@ -87,12 +87,12 @@ public class VideoEncoderThread extends Thread {
                 try {
                     encodeFrame(1);
                 } catch (Exception e) {
-                    Log.e("=====视频录制", "解码视频(Video)数据 失败" + e.getMessage());
+//                    Log.e("=====视频录制", "解码视频(Video)数据 失败" + e.getMessage());
                     e.printStackTrace();
                 }
             }
         }
-        Log.e("=====视频录制", "Video 录制线程 退出...");
+//        Log.e("=====视频录制", "Video 录制线程 退出...");
     }
 
     public void exit() {
@@ -107,18 +107,18 @@ public class VideoEncoderThread extends Thread {
     private void encodeFrame(int input) {
         int outputState = EncoderThread.mEncoder.dequeueOutputBuffer(EncoderThread.mBufferInfo, 1000);
 
-        Log.e("=====视频录制", "解码视频数据:" + outputState);
+//        Log.e("=====视频录制", "解码视频数据:" + outputState);
 
         ByteBuffer[] outputBuffers = EncoderThread.mEncoder.getOutputBuffers();
 
         while (outputState >= 0 || outputState == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {
             if (outputState == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {
-                Log.e("=====视频录制", "添加轨道");
+//                Log.e("=====视频录制", "添加轨道");
                 //添加轨道的好时机，只有一次
                 MediaFormat newFormat = EncoderThread.mEncoder.getOutputFormat();
                 MediaMuxerThread mediaMuxerRunnable = this.mediaMuxer.get();
                 if (mediaMuxerRunnable != null) {
-                    Log.e("=====视频录制", "添加轨道成功");
+//                    Log.e("=====视频录制", "添加轨道成功");
                     mediaMuxerRunnable.addTrackIndex(MediaMuxerThread.TRACK_VIDEO, newFormat);
                 }
             } else {
@@ -126,11 +126,11 @@ public class VideoEncoderThread extends Thread {
                 if ((EncoderThread.mBufferInfo.flags & MediaCodec.BUFFER_FLAG_CODEC_CONFIG) != 0) {
                     EncoderThread.mBufferInfo.size = 0;
                 }
-                Log.e("=====视频录制", "EncoderThread.mBufferInfo.size:" + EncoderThread.mBufferInfo.size);
+//                Log.e("=====视频录制", "EncoderThread.mBufferInfo.size:" + EncoderThread.mBufferInfo.size);
                 if (EncoderThread.mBufferInfo.size != 0) {
                     MediaMuxerThread mediaMuxer = this.mediaMuxer.get();
                     if (mediaMuxer != null && mediaMuxer.isMuxerStart()) {
-                        Log.e("=====视频录制", "添加视频数据111");
+//                        Log.e("=====视频录制", "添加视频数据111");
                         mediaMuxer.addMuxerData(new MediaMuxerThread.MuxerData(MediaMuxerThread.TRACK_VIDEO, outputBuffer, EncoderThread.mBufferInfo));
                     }
                 }
@@ -144,13 +144,17 @@ public class VideoEncoderThread extends Thread {
      * 停止视频编码
      */
     private void stopMediaCodec() {
-        if (EncoderThread.mEncoder != null) {
+        if (EncoderThread.mEncoder != null && mEncoderThread != null) {
             mEncoderThread.interrupt();
             mEncoderThread.quit();
             EncoderThread.mEncoder = null;
         }
+        if (EncoderThread.mVirtualDisplay != null) {
+            EncoderThread.mVirtualDisplay.release();
+            EncoderThread.mVirtualDisplay = null;
+        }
         isStart = false;
-        Log.e("=====视频录制", "stop video 录制...");
+//        Log.e("=====视频录制", "stop video 录制...");
     }
 
 }

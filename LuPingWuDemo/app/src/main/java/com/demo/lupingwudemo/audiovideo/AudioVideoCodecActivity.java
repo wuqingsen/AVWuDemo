@@ -86,6 +86,8 @@ public class AudioVideoCodecActivity extends AppCompatActivity {
     public void stopRecord() {
         Toast.makeText(this,"停止录制中......", Toast.LENGTH_SHORT).show();
         mTvResult.setText("完成录制，文件保存在" + getSavePath() + File.separator);
+        mediaProjection.stop();
+        mediaProjection = null;
     }
 
     public void checkPermission() {
