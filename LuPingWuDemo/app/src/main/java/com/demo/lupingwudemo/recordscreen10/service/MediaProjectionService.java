@@ -19,6 +19,7 @@ import android.os.Binder;
 import android.os.Environment;
 import android.os.IBinder;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import com.demo.lupingwudemo.recordscreen10.interfaces.MediaProjectionNotificationEngine;
 import com.demo.lupingwudemo.recordscreen10.interfaces.MediaRecorderCallback;
@@ -176,6 +177,7 @@ public class MediaProjectionService extends Service {
             }
         }, null);
 
+        Log.i("wqs-", "Create VirtualDisplay:" + width + ";" + height + ";" + densityDpi);
         virtualDisplayImageReader = mediaProjection.createVirtualDisplay("ScreenCapture",
                 width, height, densityDpi, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
                 imageReader.getSurface(), null, null);
@@ -199,11 +201,15 @@ public class MediaProjectionService extends Service {
         // 调用顺序不能乱
         mediaRecorder = new MediaRecorder();
         mediaRecorder.setVideoSource(MediaRecorder.VideoSource.SURFACE);
+//        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         mediaRecorder.setOutputFile(mediaFile.getAbsolutePath());
+
         mediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
+//        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+
         mediaRecorder.setVideoSize(width, height);
-        mediaRecorder.setVideoFrameRate(30);
+        mediaRecorder.setVideoFrameRate(60);
         mediaRecorder.setVideoEncodingBitRate(5 * width * height);
 
         mediaRecorder.setOnErrorListener(new MediaRecorder.OnErrorListener() {

@@ -15,25 +15,30 @@ import java.io.IOException;
  * annotation:
  */
 @SuppressLint("NewApi")
-public class RecordScreenUtils implements MuxerListener{
+public class RecordScreenUtils implements MuxerListener {
     private MediaProjection mediaProjection;
     private MediaMuxer mMediaMuxer;
     private String mSavePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/吴庆森录屏2.mp4";
-    private ScreenRecorderThread screenRecorderThread = new ScreenRecorderThread();
-    private AudioRecorderThread audioRecorderThread = new AudioRecorderThread();
+    private ScreenRecorderThread screenRecorderThread;
+    private AudioRecorderThread audioRecorderThread;
     private MediaFormat mVideoMediaFormat = DefaultMediaFormat.getDefaultVideoFormat();//获取视频默认的MediaFormat
     private MediaFormat mAudioMediaFormat = DefaultMediaFormat.getDefaultAudioFormat();//获取音频默认的MediaFormat
 
-    protected boolean mScreenRecordMuxerStartReady = false;//ScreenRecord是否准备好开启MediaMuxer;
+    protected volatile boolean mScreenRecordMuxerStartReady = false;//ScreenRecord是否准备好开启MediaMuxer;
 
-    protected boolean mAudioRecordMuxerStartReady = false;//AudioRecord是否准备好开启MediaMuxer;
+    protected volatile boolean mAudioRecordMuxerStartReady = false;//AudioRecord是否准备好开启MediaMuxer;
 
-    protected boolean mScreenRecordMuxerStopReady = false;//ScreenRecord是否准备好停止MediaMuxer;
+    //volatile后加
+    protected volatile boolean mScreenRecordMuxerStopReady = false;//ScreenRecord是否准备好停止MediaMuxer;
+    //volatile后加
+    protected volatile boolean mAudioRecordMuxerStopReady = false;//AudioRecord是否准备好停止MediaMuxer;
 
-    protected boolean mAudioRecordMuxerStopReady = false;//AudioRecord是否准备好停止MediaMuxer;
-
-    public RecordScreenUtils(MediaProjection mediaProjection) {
+    public RecordScreenUtils(MediaProjection mediaProjection, VideoDataListener videoDataListener) {
         this.mediaProjection = mediaProjection;
+
+        screenRecorderThread = new ScreenRecorderThread(videoDataListener);
+        audioRecorderThread = new AudioRecorderThread();
+
         screenRecorderThread.setMediaProjection(this.mediaProjection);
 
         screenRecorderThread.setMuxerListener(this);
@@ -89,12 +94,12 @@ public class RecordScreenUtils implements MuxerListener{
     @Override
     public boolean stopMuxer(int type) {
 
-        if(type == 1){
+        if (type == 1) {
             mScreenRecordMuxerStopReady = true;
-        }else if(type == 2){
+        } else if (type == 2) {
             mAudioRecordMuxerStopReady = true;
         }
-        if(mAudioRecordMuxerStopReady&&mScreenRecordMuxerStopReady){
+        if (mAudioRecordMuxerStopReady && mScreenRecordMuxerStopReady) {
             mMediaMuxer.stop();
             mMediaMuxer.release();
             Log.d("wqs", "muxer is stop...");

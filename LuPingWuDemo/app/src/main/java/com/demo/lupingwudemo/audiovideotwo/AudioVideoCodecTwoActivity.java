@@ -10,6 +10,7 @@ import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -86,7 +87,12 @@ public class AudioVideoCodecTwoActivity extends AppCompatActivity {
         }
 
         //开始屏幕录制
-        recordScreenUtils = new RecordScreenUtils(mediaProjection);
+        recordScreenUtils = new RecordScreenUtils(mediaProjection, new VideoDataListener() {
+            @Override
+            public void onEncode(byte[] data, int offset, int length) {
+//                Log.w("wqs", "视频流回调: \ndata:" + data.length + "\noffset:" + offset + "\nlength" + length);
+            }
+        });
         recordScreenUtils.config();
         recordScreenUtils.startRecord();
     }

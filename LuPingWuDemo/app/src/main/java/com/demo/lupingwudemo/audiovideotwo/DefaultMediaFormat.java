@@ -15,12 +15,12 @@ public class DefaultMediaFormat {
 
     public static MediaFormat getDefaultVideoFormat(){
 
-        MediaFormat format = MediaFormat.createVideoFormat("video/avc", 1280, 720);
+        MediaFormat format = MediaFormat.createVideoFormat("video/avc",720 , 1280);
         format.setInteger(MediaFormat.KEY_COLOR_FORMAT,
                 MediaCodecInfo.CodecCapabilities.COLOR_FormatSurface);
-        format.setInteger(MediaFormat.KEY_BIT_RATE, 6000000);
+        format.setInteger(MediaFormat.KEY_BIT_RATE, 1048000);
         format.setInteger(MediaFormat.KEY_FRAME_RATE, 30);
-        format.setInteger(MediaFormat.KEY_I_FRAME_INTERVAL, 10);
+        format.setInteger(MediaFormat.KEY_I_FRAME_INTERVAL, 5);
         return format;
     }
 

@@ -68,7 +68,7 @@ public class VideoCodec10Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 doServiceStop();
-//                doMediaRecorderStop();
+                doMediaRecorderStop();
             }
         });
     }
@@ -114,27 +114,6 @@ public class VideoCodec10Activity extends AppCompatActivity {
     }
 
     /**
-     * 屏幕截图
-     */
-    private void doScreenCapture() {
-        MediaProjectionHelper.getInstance().capture(new ScreenCaptureCallback() {
-            @Override
-            public void onSuccess(Bitmap bitmap) {
-                super.onSuccess(bitmap);
-
-                saveBitmapToFile(bitmap, "ScreenCapture");
-            }
-
-            @Override
-            public void onFail() {
-                super.onFail();
-
-                LogUtil.e("ScreenCapture onFail");
-            }
-        });
-    }
-
-    /**
      * 开始屏幕录制
      */
     private void doMediaRecorderStart() {
@@ -162,31 +141,6 @@ public class VideoCodec10Activity extends AppCompatActivity {
      */
     private void doMediaRecorderStop() {
         MediaProjectionHelper.getInstance().stopMediaRecorder();
-    }
-
-    /**
-     * 保存Bitmap到文件
-     *
-     * @param bitmap     bitmap
-     * @param filePrefix 文件前缀名
-     */
-    private void saveBitmapToFile(Bitmap bitmap, String filePrefix) {
-        BitmapUtils.saveBitmapToFile(this, bitmap, filePrefix, new SaveBitmapCallback() {
-            @Override
-            public void onSuccess(File file) {
-                super.onSuccess(file);
-                Toast.makeText(getApplication(), getString(R.string.content_save_bitmap_result, file.getAbsolutePath()), Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onFail(Exception e) {
-                super.onFail(e);
-
-                LogUtil.e("Save onError");
-
-                e.printStackTrace();
-            }
-        });
     }
 
     @Override

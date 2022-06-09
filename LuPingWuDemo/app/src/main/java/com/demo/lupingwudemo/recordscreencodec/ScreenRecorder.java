@@ -20,7 +20,6 @@ import java.nio.ByteBuffer;
 public class ScreenRecorder extends Thread {
     private static final String TAG = "mmm";
     private final HandlerThread mGLThread;
-    private final Handler mGLHandler;
 
     private int mWidth;
     private int mHeight;
@@ -38,7 +37,6 @@ public class ScreenRecorder extends Thread {
 
         mGLThread = new HandlerThread("GLThread");
         mGLThread.start();
-        mGLHandler = new Handler(mGLThread.getLooper());
     }
 
     /**

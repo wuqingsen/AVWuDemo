@@ -44,7 +44,7 @@ public class AudioRecorderThread extends Thread {
 
     private MediaCodec mMediaCodec;
 
-    private boolean mMuxerStart = false;
+    private volatile boolean mMuxerStart = false;
 
     private MediaMuxer mMediaMuxer;
 
@@ -225,8 +225,10 @@ public class AudioRecorderThread extends Thread {
                         enData.limit(mBufferInfo.size + mBufferInfo.offset);
                         mBufferInfo.presentationTimeUs = getPTSUs();
                         prevOutputPTSUs = mBufferInfo.presentationTimeUs;
-                        mMediaMuxer.writeSampleData(mTackIndex, enData, mBufferInfo);
-                        Log.d(LOG_TAG, "audio data is writing to mediamuxer...");
+                        synchronized (this){
+                            mMediaMuxer.writeSampleData(mTackIndex, enData, mBufferInfo);
+                        }
+//                        Log.d(LOG_TAG, "audio data is writing to mediamuxer...");
                     }
 
                     mMediaCodec.releaseOutputBuffer(encoderIndex, false);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.AudioFormat;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 
@@ -56,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
         btnVoiceMix1 = findViewById(R.id.btnVoiceMix1);
         btnVoiceMix16 = findViewById(R.id.btnVoiceMix16);
         btnMp3ToAac = findViewById(R.id.btnMp3ToAac);
+
+//        startActivity(new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION));
+
+        //判断是否获取MANAGE_EXTERNAL_STORAGE权限：
+//        boolean isHasStoragePermission= Environment.isExternalStorageManager();
 
         //pcm录制
         btnPcm.setOnClickListener(new View.OnClickListener() {

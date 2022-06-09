@@ -66,6 +66,18 @@ public class AacRecordActivity extends AppCompatActivity {
                 }
             }
         });
+        isFile();
+    }
+
+    private void isFile() {
+        String LVideo = Environment.getExternalStorageDirectory() + "/Android/data/com.sinosoft.chinalife/files//VideoRecorder/5597d09c-3fc0-416d-8af6-626d5d9c25c7/5597d09c-3fc0-416d-8af6-626d5d9c25c7.mp4";
+        String LSVideo = Environment.getExternalStorageDirectory() + "/Android/data/com.sinosoft.chinalife/files//VideoRecorder/5597d09c-3fc0-416d-8af6-626d5d9c25c7/5597d09c-3fc0-416d-8af6-626d5d9c25c71.mp4";
+        File file = new File(LVideo);
+        if (!file.exists()) {
+            Log.w("wqs", "文件不存在;" + LVideo);
+        } else {
+            Log.w("wqs", "文件存在;" + LVideo);
+        }
     }
 
     //开始录制
@@ -140,6 +152,7 @@ public class AacRecordActivity extends AppCompatActivity {
                 }
             }
         }
+
     }
 
 

@@ -15,7 +15,6 @@ import java.nio.ByteBuffer;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
-
 /**
  * wuqingsen on 2020-06-09
  * Mailbox:1243411677@qq.com
@@ -32,7 +31,7 @@ public class ScreenRecorderThread extends Thread {
 
     private MediaCodec mMediaCodec;
 
-    private boolean mMuxerStart = false;
+    private volatile boolean mMuxerStart = false;
 
     private MediaFormat mVideoMediaFormat;
 
@@ -48,6 +47,11 @@ public class ScreenRecorderThread extends Thread {
     private long prevOutputPTSUs = 0;
 
     protected MuxerListener mMuxerListener;
+    private VideoDataListener videoDataListener;
+
+    public ScreenRecorderThread(VideoDataListener videoDataListener) {
+        this.videoDataListener = videoDataListener;
+    }
 
     @Override
     public void run() {
@@ -61,7 +65,7 @@ public class ScreenRecorderThread extends Thread {
             if (index == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {
                 //为MediaMuxer添加VideoTrack
                 resetOutputFormat();
-                Log.e("wqs", "ScreenRecorderThread: 开始录制屏幕 VideoTrack");
+//                Log.e("wqs", "ScreenRecorderThread: 开始录制屏幕 VideoTrack");
             } else if (index == MediaCodec.INFO_TRY_AGAIN_LATER) {
                 //没有拿到数据，10ms后再去获取
                 try {
@@ -69,14 +73,14 @@ public class ScreenRecorderThread extends Thread {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Log.e("wqs", "ScreenRecorderThread: 开始录制屏幕 10ms后再去获取");
+//                Log.e("wqs", "ScreenRecorderThread: 开始录制屏幕 10ms后再去获取");
             } else if (index > 0) {
                 if (!mMuxerStart) {
                     throw new IllegalStateException("MediaMuxer dose not call addTrack(format) ");
                 }
                 //将数据写入MediaMuxer
                 encodeToTrack(index);
-                Log.e("wqs", "ScreenRecorderThread: 开始录制屏幕 encodeToTrack");
+//                Log.e("wqs", "ScreenRecorderThread: 开始录制屏幕 encodeToTrack");
                 //释放MediaCodec的OutputBuffer
                 mMediaCodec.releaseOutputBuffer(index, false);
             }
@@ -161,7 +165,7 @@ public class ScreenRecorderThread extends Thread {
         if (mMediaProjection != null) {
             mMediaProjection = null;
         }
-        if(mMuxerListener!=null){
+        if (mMuxerListener != null) {
             mMuxerListener.stopMuxer(1);
             mMediaMuxer = null;
         }
@@ -201,8 +205,24 @@ public class ScreenRecorderThread extends Thread {
             enData.limit(mBufferInfo.size + mBufferInfo.offset);
             mBufferInfo.presentationTimeUs = getPTSUs();
             prevOutputPTSUs = mBufferInfo.presentationTimeUs;
-            mMediaMuxer.writeSampleData(mTackIndex, enData, mBufferInfo);
+            synchronized (this) {
+                mMediaMuxer.writeSampleData(mTackIndex, enData, mBufferInfo);
+            }
             // Log.d(LOG_TAG, "mTackIndex is "+mTackIndex+" screen data is writing to mediamuxer...");
+
+
+            //将编码数据实时传给解码器进行解码,
+            //但这里出现问题，导致解码不出画面
+            int offset = enData.position();
+            int len = mBufferInfo.size;
+            int size = enData.limit();
+            byte[] data = new byte[size];
+            for (int i = offset; i < size; i++) {
+                data[i] = enData.get(i);
+            }
+            if (videoDataListener != null) {
+                videoDataListener.onEncode(data, offset, len);
+            }
         }
 
     }
